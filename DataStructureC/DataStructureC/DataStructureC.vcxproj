@@ -139,7 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="datastructure.cpp" />
     <ClCompile Include="DataStructureC.cpp" />
+    <ClCompile Include="vector.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="datastructure.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

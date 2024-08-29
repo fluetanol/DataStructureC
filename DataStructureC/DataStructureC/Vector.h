@@ -1,25 +1,31 @@
 #pragma once
 
+
 template<typename T>
 class vector
 {
 	public:
-		int k;
 		vector();
 		vector(int size);
 		~vector();
 		void push(T element);
-		void remove(int idx);
+		void pop();
+		void removeAt(int idx);
 		void clear();
 		void print();
+		int size();
 		bool isEmpty();
-		T get(int idx) const;
-		T& operator[](T idx) const;
+		void set(int idx, T element);
+		T& get(int idx) const;
+		T& operator[](int idx) const;
+		
 
 
 	private:
 		T* _vectorArray;
-		int _size = 0;
+		int _size = 1;
+		int _count = 0;
+		bool isOutOfRange(int idx) const;
 
 };
 
