@@ -1,31 +1,35 @@
 #pragma once
-
+#include "vectorBase.h"
 
 template<typename T>
-class vector
+class vector : public arrayBase<T>
 {
 	public:
 		vector();
 		vector(int size);
-		~vector();
-		void push(T element);
-		void pop();
-		void removeAt(int idx);
-		void clear();
-		void print();
-		int size();
-		bool isEmpty();
-		void set(int idx, T element);
-		T& get(int idx) const;
-		T& operator[](int idx) const;
-		
-
-
-	private:
-		T* _vectorArray;
-		int _size = 1;
-		int _count = 0;
-		bool isOutOfRange(int idx) const;
-
+		~vector();	
 };
 
+
+
+template<typename T>
+vector<T>::vector() {
+	this->_vectorArray = new T[1];
+}
+
+template<typename T>
+vector<T>::vector(int size) {
+	this->_size = size;
+	this->_count = size;
+	this->_vectorArray = new T[size];
+
+	for (int i = 0; i < size; i++) {
+		this->_vectorArray[i] = 0;
+	}
+}
+
+template<typename T>
+vector<T>::~vector() {
+	delete[] this->_vectorArray;
+	this->_vectorArray = nullptr;
+}

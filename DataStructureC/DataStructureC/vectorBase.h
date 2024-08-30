@@ -1,37 +1,34 @@
-#include "vector.h"
+#pragma once
+#include "datastructure.h"
 #include <iostream>
 
 using namespace std;
 
-
 template<typename T>
-vector<T>::vector(){
-	_vectorArray = new T[1];
-}
-
-template<typename T>
-vector<T>::vector(int size)
+class arrayBase : public datastructureBase
 {
-	_size = size;
-	_count = size;
-	_vectorArray = new T[size];
+	public:
+		void push(T element);
+		void pop();
+		void removeAt(int idx);
+		void set(int idx, T element);
+		T& get(int idx) const;
+		T& operator[](int idx) const;
+		virtual void clear() override;
+		virtual void print() override;
+		virtual bool isEmpty() override;
+		virtual int size() override;
 
-	for (int i = 0; i < size; i++) {
-		if constexpr (is_same_v<T, string>)_vectorArray[i] = "-1";
-		else _vectorArray[i] = 0;
-	}
-}
+	protected:
+		T* _vectorArray;
+		int _size = 1;
+		int _count = 0;
+		bool isOutOfRange(int idx) const;
+};
 
 
 template<typename T>
-vector<T>::~vector(){
-	delete[] _vectorArray;
-	_vectorArray = nullptr;
-}
-
-
-template<typename T>
-void vector<T>::push(T element)
+void arrayBase<T>::push(T element)
 {
 	if (_size == _count) {
 		_size *= 2;
@@ -47,13 +44,13 @@ void vector<T>::push(T element)
 }
 
 template<typename T>
-void vector<T>::pop(){
+void arrayBase<T>::pop() {
 	if (_count <= 0) return;
 	_count--;
 }
 
 template<typename T>
-void vector<T>::removeAt(int idx)
+void arrayBase<T>::removeAt(int idx)
 {
 	if (isOutOfRange(idx)) {
 		throw out_of_range("index Out of Range! ");
@@ -67,12 +64,12 @@ void vector<T>::removeAt(int idx)
 }
 
 template<typename T>
-void vector<T>::clear() {
+void arrayBase<T>::clear() {
 	_count = 0;
 }
 
 template<typename T>
-void vector<T>::print(){
+void arrayBase<T>::print() {
 	if (_count == 0) {
 		cout << "No Element" << endl;
 		return;
@@ -85,23 +82,23 @@ void vector<T>::print(){
 }
 
 template<typename T>
-int vector<T>::size() {
+int arrayBase<T>::size() {
 	return _count;
 }
 
 template<typename T>
-bool vector<T>::isOutOfRange(int idx) const
+bool arrayBase<T>::isOutOfRange(int idx) const
 {
 	return (_count <= idx || idx < 0);
 }
 
 template<typename T>
-bool vector<T>::isEmpty(){
+bool arrayBase<T>::isEmpty() {
 	return _count == 0;
 }
 
 template<typename T>
-T& vector<T>::get(int idx) const
+T& arrayBase<T>::get(int idx) const
 {
 	if (isOutOfRange(idx)) {
 		throw out_of_range("index Out of Range!");
@@ -111,14 +108,7 @@ T& vector<T>::get(int idx) const
 }
 
 template<typename T>
-T& vector<T>::operator[](int idx) const
+T& arrayBase<T>::operator[](int idx) const
 {
 	return get(idx);
 }
-
-
-
-
-
-
-
